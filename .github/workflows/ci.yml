@@ -41,5 +41,5 @@ jobs:
       - name: "Docker Pull and Restart Docker"
         run: |
           ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull sahilgurung13/devopscw'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop not-nginx && docker rm not-nginx'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name not-nginx -p 80:80 -d sahilgurung13/devopscw'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop coursework && docker rm coursework'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name coursework -p 80:80 -d sahilgurung13/devopscw'
