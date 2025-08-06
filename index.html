@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sahil Gurung | Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    header nav {
+      position: sticky;
+      top: 0;
+      background: #222;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 1000;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #00bcd4;
+    }
+
+    #hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(to right, #00bcd4, #2196f3);
+      color: white;
+    }
+
+    #hero img {
+      width: 120px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .btn {
+      background: white;
+      color: #2196f3;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 3rem 2rem;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+      padding: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .project-card:hover {
+      transform: scale(1.05);
+    }
+
+    .project-card img {
+      width: 100%;
+      border-radius: 5px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    form button {
+      background: #2196f3;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #222;
+      color: white;
+      position: relative;
+    }
+
+    #scrollTop {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      background: #00bcd4;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>Sahil Gurung</h1>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hero">
+    <img src="https://i.imgur.com/yourProfileImage.jpg" alt="Sahil Gurung" />
+    <h2>Full-Stack Developer</h2>
+    <p>Building scalable apps with Flutter, Node.js, and MongoDB</p>
+    <a href="#projects" class="btn">View Projects</a>
+  </section>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I'm a passionate developer with experience in mobile and web development, cloud integration, and backend architecture.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="project-card">
+      <img src="https://i.imgur.com/project1.jpg" alt="Zing Closet" />
+      <h3>Zing Closet</h3>
+      <p>E-commerce app built with Flutter and Node.js</p>
+    </div>
+    <div class="project-card">
+      <img src="https://i.imgur.com/project2.jpg" alt="D. Cube Internship" />
+      <h3>D. Cube Internship</h3>
+      <p>Mobile & web apps with Flutter, Node.js, and MySQL</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Sahil Gurung</p>
+    <button id="scrollTop">↑</button>
+  </footer>
+
+  <script>
+    document.getElementById("scrollTop").addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>

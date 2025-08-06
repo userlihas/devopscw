@@ -1,0 +1,67 @@
+name: CI/CD Pipeline with SonarQube & Docker Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      SERVER_IP: ${{ vars.SERVER_IP }}
+
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full clone for SonarQube relevance
+
+      # SonarQube Scan
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      # Optional: Quality Gate Check
+      # - name: Check Quality Gate
+      #   uses: SonarSource/sonarqube-quality-gate-action@v1
+      #   timeout-minutes: 5
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      # Docker Build & Push
+      - name: Docker Login & Build/Push Image
+        run: |
+          docker login -u sahilgurung13 -p $DOCKERHUB_PAT
+          docker build -t sahilgurung13/devopscw .
+          docker push sahilgurung13/devopscw
+        env:
+          DOCKERHUB_PAT: ${{ secrets.DOCKERHUB_PAT }}
+
+      # SSH Configuration
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+          touch ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+      
+      # Add SSH Private Key
+      - name: Add SSH Private Key
+        run: |
+          touch pem.pem
+          echo $SSH_KEY64 | base64 -d > pem.pem && chmod 400 pem.pem
+          ssh-keygen -R $SERVER_IP
+        env: 
+          SSH_KEY64: ${{ secrets.SSH_KEY64 }}
+
+      # Deploy to Server via SSH
+      - name: Deploy Docker Container on Server
+        run: |
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull sahilgurung13/devopscw'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop not-nginx && docker rm not-nginx || true'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name not-nginx -p 80:80 -d sahilgurung13/devopscw'
