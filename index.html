@@ -3,562 +3,218 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Neon Game Arcade</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<title>Quiet Corner — A calm personal site</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
   :root{
-    --bg:#060812;
-    --panel:#0b1116;
-    --muted:#98a6b3;
-    --accent1:#7c5cff;
-    --accent2:#02b3ff;
-    --glass: rgba(255,255,255,0.03);
-    --neon: 0 6px 30px rgba(124,92,255,0.12), 0 0 30px rgba(2,179,255,0.06);
-    --radius:12px;
+    --bg: #0b1220;
+    --panel: rgba(255,255,255,0.03);
+    --muted: #9fb0c5;
+    --accent: #8c6ff0;
+    --accent-2: #6fd3ff;
+    --glass: rgba(255,255,255,0.02);
+    --radius: 14px;
+    --max-width: 1000px;
   }
+
+  /* Base */
   *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;background:linear-gradient(180deg,#04050a 0%, #07101a 100%);color:#eaf3ff}
-  .wrap{max-width:1150px;margin:28px auto;padding:20px}
-  header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
-  .logo{display:flex;align-items:center;gap:12px}
-  .logo-badge{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#02030b}
-  h1{margin:0;font-size:20px}
-  p.lead{margin:0;color:var(--muted);font-size:13px}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:
+    linear-gradient(180deg,#071022 0%, #050810 100%);color:#e8f4ff;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:var(--max-width);margin:36px auto;padding:24px;display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:start}
+  @media (max-width:880px){ .wrap{grid-template-columns:1fr;padding:18px} }
 
-  /* grid */
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:var(--radius);padding:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:var(--neon);overflow:hidden;position:relative}
-  .thumb{height:220px;border-radius:10px;overflow:hidden;background:#05131a;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,0.02)}
-  .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
-  .title{font-weight:700}
-  .desc{color:var(--muted);font-size:13px}
-  .btn{padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));border:none;color:#02030b;font-weight:700;cursor:pointer;box-shadow:var(--neon);transition:transform .12s}
-  .btn:active{transform:translateY(1px)}
-  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted)}
+  /* Left column - Quiet profile */
+  .panel{background:linear-gradient(180deg,var(--panel), rgba(255,255,255,0.01));border-radius:var(--radius);padding:18px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(12,18,26,0.6)}
+  .avatar{width:96px;height:96px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#07101a;font-size:28px;box-shadow:0 10px 40px rgba(110,80,240,0.12)}
+  .name{font-weight:700;font-size:18px;margin-top:12px}
+  .title{color:var(--muted);font-size:13px;margin-top:4px}
+  .bio{margin-top:12px;color:var(--muted);line-height:1.5;font-size:14px}
+  .soft-list{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+  .chip{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;font-size:13px;border:1px solid rgba(255,255,255,0.02)}
 
-  /* hover glow */
-  .card:hover{transform:translateY(-6px);transition:transform .28s}
-  .thumb:hover{box-shadow:0 20px 60px rgba(2,179,255,0.04), 0 6px 30px rgba(124,92,255,0.05)}
+  /* Right column - content */
+  .hero{background:linear-gradient(135deg, rgba(140,111,240,0.06), rgba(111,211,255,0.03));padding:18px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.02);display:flex;align-items:center;gap:18px;backdrop-filter:blur(4px)}
+  .hero h1{margin:0;font-size:20px}
+  .hero p{margin:0;color:var(--muted);font-size:14px}
 
-  /* overlay */
-  .overlay{position:fixed;inset:0;background:linear-gradient(180deg,rgba(2,6,14,0.92), rgba(3,6,10,0.98));display:none;align-items:center;justify-content:center;z-index:999}
-  .overlay.active{display:flex}
-  .game-window{width:min(1100px,96vw);height:min(700px,92vh);background:linear-gradient(180deg,#04101a,#021018);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--neon)}
-  .game-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
-  .controls{display:flex;gap:8px}
-  .game-area{flex:1;border-radius:8px;overflow:hidden;background:#000}
-  canvas{width:100%;height:100%;display:block;background:#04060a}
+  /* sections */
+  section{margin-top:22px}
+  h2{margin:0 0 10px 0;font-size:16px}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+  .grid-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media (max-width:880px){ .grid-photos{grid-template-columns:repeat(2,1fr)} }
+  .photo{height:92px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.015)}
 
-  /* UI bits */
-  .footer{display:flex;justify-content:space-between;align-items:center;margin-top:18px;color:var(--muted);font-size:13px}
-  .preview-strip{height:6px;width:100%;background:linear-gradient(90deg,var(--accent1),var(--accent2));border-radius:4px;transform-origin:left}
-  .small{font-size:12px;color:var(--muted)}
-  @media (max-width:900px){ .grid{grid-template-columns:1fr} .thumb{height:180px} .game-window{height:86vh} }
+  /* contact */
+  .contact-form{display:flex;flex-direction:column;gap:10px}
+  .contact-form input,.contact-form textarea{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:10px;border-radius:10px;color:inherit;outline:none;font-size:14px}
+  .contact-form textarea{min-height:96px;resize:vertical}
+  .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:#07101a;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;box-shadow:0 10px 30px rgba(110,80,240,0.08)}
+  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--muted);padding:10px;border-radius:10px;cursor:pointer}
+
+  /* subtle micro interactions */
+  .fade-in{opacity:0;transform:translateY(8px);animation:fadeIn .6s ease forwards}
+  .fade-in.delay-1{animation-delay:0.06s}
+  .fade-in.delay-2{animation-delay:0.12s}
+  .fade-in.delay-3{animation-delay:0.18s}
+  @keyframes fadeIn{to{opacity:1;transform:none}}
+
+  .soft-focus{transition:box-shadow .18s, transform .18s}
+  .soft-focus:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(7,12,24,0.6)}
+
+  footer{margin-top:28px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+
+  /* accessibility helpers */
+  .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="logo">
-      <div class="logo-badge">NG</div>
-      <div>
-        <h1>Neon Game Arcade</h1>
-        <p class="lead">Jump in — 4 quick HTML5 mini-games. Click cover to play fullscreen.</p>
+  <div class="wrap" role="main">
+    <!-- LEFT: profile -->
+    <aside class="panel fade-in" aria-label="Profile">
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div class="avatar" aria-hidden="true">Q</div>
+        <div class="name">Quiet Corner</div>
+        <div class="title">Introvert • Observer • Maker</div>
       </div>
-    </div>
-    <div class="small">Dark • Neon • Instant Play</div>
-  </header>
 
-  <main>
-    <div class="grid" id="grid">
-      <!-- Game cards (4) -->
-      <div class="card" data-game="runner">
-        <div class="thumb" data-game="runner" tabindex="0"><canvas id="thumb-runner"></canvas></div>
-        <div class="meta">
-          <div>
-            <div class="title">Neon Runner</div>
-            <div class="desc">Endless runner — jump obstacles, survive.</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <button class="btn" onclick="openGame('runner')">Play Now</button>
-            <button class="btn btn-ghost" onclick="preview('runner')">Preview</button>
-          </div>
+      <p class="bio soft-focus fade-in delay-1">
+        Hello — this is a calm place. I prefer thoughtful conversations, slow mornings, and quiet creativity.
+        I build small things, sketch ideas, and recharge on walks.
+      </p>
+
+      <div class="soft-list fade-in delay-2" aria-hidden="true">
+        <div class="chip">Likes: tea, books, small projects</div>
+        <div class="chip">Works: design, coding, writing</div>
+        <div class="chip">Quiet rules: one message at a time</div>
+      </div>
+
+      <div style="margin-top:14px" class="fade-in delay-3">
+        <button class="btn-ghost" onclick="document.getElementById('contact-name').focus()" aria-label="Start contact">Send a brief hello</button>
+      </div>
+    </aside>
+
+    <!-- RIGHT: content -->
+    <div>
+      <div class="hero fade-in" role="region" aria-labelledby="hero-title">
+        <div style="flex:1">
+          <h1 id="hero-title">A calm corner for quiet people</h1>
+          <p class="lead" style="margin-top:8px;color:var(--muted)">Slow down. Breathe. You're welcome to read, browse, or send a short note — no pressure.</p>
         </div>
-        <div class="preview-strip" id="strip-runner" hidden></div>
+        <div style="min-width:120px;text-align:right;color:var(--muted);font-size:13px">Soft · Minimal · Private</div>
       </div>
 
-      <div class="card" data-game="shooter">
-        <div class="thumb" data-game="shooter"><canvas id="thumb-shooter"></canvas></div>
-        <div class="meta">
-          <div>
-            <div class="title">Pixel Shooter</div>
-            <div class="desc">Top-down blaster — dodge and shoot waves.</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <button class="btn" onclick="openGame('shooter')">Play Now</button>
-            <button class="btn btn-ghost" onclick="preview('shooter')">Preview</button>
-          </div>
+      <section class="card fade-in delay-1" aria-labelledby="about-h">
+        <h2 id="about-h">About</h2>
+        <p style="margin-top:8px;color:var(--muted);line-height:1.6">
+          I value clarity, space, and depth. My ideal day includes a quiet morning, a focused project session, and an evening walk.
+          This site shares small things — thoughts, images, and a way to connect without overwhelming noise.
+        </p>
+      </section>
+
+      <section class="card fade-in delay-2" aria-labelledby="gallery-h" style="margin-top:18px">
+        <h2 id="gallery-h">Soft Gallery</h2>
+        <div class="grid-photos" style="margin-top:12px" aria-hidden="false">
+          <div class="photo soft-focus">Evening walk</div>
+          <div class="photo soft-focus">A quiet desk</div>
+          <div class="photo soft-focus">A small sketch</div>
+          <div class="photo soft-focus">A cozy window</div>
+          <div class="photo soft-focus">Tea & a book</div>
+          <div class="photo soft-focus">Minimal tools</div>
         </div>
-        <div class="preview-strip" id="strip-shooter" hidden></div>
-      </div>
+      </section>
 
-      <div class="card" data-game="racer">
-        <div class="thumb" data-game="racer"><canvas id="thumb-racer"></canvas></div>
-        <div class="meta">
-          <div>
-            <div class="title">Sky Racer</div>
-            <div class="desc">Simple top-down racer — complete laps.</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <button class="btn" onclick="openGame('racer')">Play Now</button>
-            <button class="btn btn-ghost" onclick="preview('racer')">Preview</button>
-          </div>
-        </div>
-        <div class="preview-strip" id="strip-racer" hidden></div>
-      </div>
+      <section class="card fade-in delay-3" aria-labelledby="contact-h" style="margin-top:18px">
+        <h2 id="contact-h">Contact</h2>
+        <p class="small" style="margin-top:6px;color:var(--muted)">If you'd like to reach out, keep it short — a single question or a hello is perfect.</p>
 
-      <div class="card" data-game="jumper">
-        <div class="thumb" data-game="jumper"><canvas id="thumb-jumper"></canvas></div>
-        <div class="meta">
-          <div>
-            <div class="title">Block Jumper</div>
-            <div class="desc">Timing platformer — jump over moving blocks.</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <button class="btn" onclick="openGame('jumper')">Play Now</button>
-            <button class="btn btn-ghost" onclick="preview('jumper')">Preview</button>
-          </div>
-        </div>
-        <div class="preview-strip" id="strip-jumper" hidden></div>
-      </div>
-    </div>
+        <form class="contact-form" onsubmit="handleContact(event)" aria-label="Contact form">
+          <label class="visually-hidden" for="contact-name">Name</label>
+          <input id="contact-name" name="name" placeholder="Your first name (optional)" autocomplete="name" />
 
-    <div class="footer">
-      <div class="small">Use ← → / A D to move — Space to jump/shoot. Mobile: tap to jump/shoot.</div>
-      <div class="small">Built with ❤️ — Single file demo</div>
-    </div>
-  </main>
-</div>
+          <label class="visually-hidden" for="contact-email">Email</label>
+          <input id="contact-email" name="email" type="email" placeholder="Email (optional, so I can reply)" autocomplete="email" />
 
-<!-- Overlay / Game window -->
-<div class="overlay" id="overlay" aria-hidden="true">
-  <div class="game-window" role="dialog" aria-label="Game window">
-    <div class="game-header">
-      <div style="font-weight:700" id="game-title">Game</div>
-      <div class="controls">
-        <div id="score" class="small">Score: 0</div>
-        <button class="btn btn-ghost" id="pauseBtn">Pause</button>
-        <button class="btn btn-ghost" onclick="closeOverlay()">Close</button>
-      </div>
-    </div>
-    <div class="game-area">
-      <canvas id="game-canvas"></canvas>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div class="small" id="game-msg"></div>
-      <div class="small" id="game-instructions">Controls: ← → / A D • Space</div>
+          <label class="visually-hidden" for="contact-msg">Message</label>
+          <textarea id="contact-msg" name="message" placeholder="A short hello or question — 1–2 sentences recommended"></textarea>
+
+          <div style="display:flex;gap:8px;align-items:center;margin-top:6px">
+            <button type="submit" class="btn">Send</button>
+            <button type="button" class="btn-ghost" onclick="prefillShort()">Write short example</button>
+          </div>
+
+          <div id="contact-note" style="margin-top:8px;color:var(--muted);font-size:13px">
+            This demo opens your email client — no data is stored here.
+          </div>
+        </form>
+      </section>
+
+      <footer class="fade-in" style="margin-top:18px">
+        <div>Quiet Corner — small site, gentle presence</div>
+        <div style="color:var(--muted)">Built for introverts • Gentle UI</div>
+      </footer>
     </div>
   </div>
-</div>
 
 <script>
-/* ------------------------
-  Utility: safe canvas resizing
--------------------------*/
-function fitToContainer(canvas){
-  const dpr = window.devicePixelRatio || 1;
-  const rect = canvas.getBoundingClientRect();
-  const w = Math.max(1, Math.floor(rect.width * dpr));
-  const h = Math.max(1, Math.floor(rect.height * dpr));
-  if(canvas.width !== w || canvas.height !== h){
-    canvas.width = w; canvas.height = h;
-  }
-}
+  // No external dependencies. All functions intentionally minimal & error-free.
 
-/* ------------------------
-  Simple thumbnail loops
--------------------------*/
-function setupThumbCanvas(id, drawFn){
-  const c = document.getElementById(id);
-  const ctx = c.getContext('2d');
-  function resize(){
-    const rect = c.getBoundingClientRect();
-    c.width = Math.max(1, Math.floor(rect.width * (window.devicePixelRatio || 1)));
-    c.height = Math.max(1, Math.floor(rect.height * (window.devicePixelRatio || 1)));
+  function prefillShort(){
+    const msg = document.getElementById('contact-msg');
+    msg.value = "Hi — I liked your site. Would you like to chat about [topic]?";
+    msg.focus();
   }
-  resize();
-  window.addEventListener('resize', resize);
-  let t=0;
-  (function loop(){
-    t++;
-    resize();
-    ctx.save();
-    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
-    ctx.clearRect(0,0,c.width,c.height);
-    drawFn(ctx, c.clientWidth, c.clientHeight, t);
-    ctx.restore();
-    requestAnimationFrame(loop);
+
+  function handleContact(event){
+    event.preventDefault();
+    // Read form values
+    const name = (document.getElementById('contact-name').value || '').trim();
+    const email = (document.getElementById('contact-email').value || '').trim();
+    const message = (document.getElementById('contact-msg').value || '').trim();
+
+    // Keep message short — gentle validation
+    if(message.length === 0){
+      showNote('Please write a short message (one or two sentences is fine).', true);
+      return;
+    }
+    if(message.length > 800){
+      showNote('Message is a bit long — consider shortening to 1–2 short paragraphs.', true);
+      return;
+    }
+
+    // Compose a mailto (client-side only). Use a calm subject and minimal info.
+    const subject = encodeURIComponent(name ? `Hello from ${name}` : 'Hello');
+    const body = encodeURIComponent(message + (email ? `\n\nReply to: ${email}` : '\n\n'));
+    // Replace email below with the real recipient if needed.
+    const recipient = 'hello@example.com';
+
+    // Open mail client in a new window/tab
+    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+
+    // Friendly UI note
+    showNote('Opening your mail client — thank you for the thoughtful message.');
+  }
+
+  function showNote(text, isError){
+    const el = document.getElementById('contact-note');
+    el.textContent = text;
+    el.style.color = isError ? '#ffb3b3' : 'var(--muted)';
+    // revert after a while
+    setTimeout(()=>{ el.textContent = 'This demo opens your email client — no data is stored here.'; el.style.color = 'var(--muted)'; }, 6000);
+  }
+
+  // Small accessibility: focus outline only when navigating by keyboard
+  (function keyboardFocusOutline(){
+    function handleKey(e){
+      if(e.key === 'Tab') document.documentElement.style.setProperty('--focus-show','auto');
+    }
+    window.addEventListener('keydown', handleKey, {once:true});
   })();
-}
-
-/* Thumbnails drawing (stylized) */
-setupThumbCanvas('thumb-runner', (ctx,w,h,t)=>{
-  ctx.fillStyle='#051018'; ctx.fillRect(0,0,w,h);
-  ctx.fillStyle='#0a2633'; ctx.fillRect(0,h-50,w,50);
-  // runner bob
-  const x = 40 + (t*3 % (w-80));
-  ctx.fillStyle='#8f6bff'; ctx.fillRect(x, h-80 - Math.abs(Math.sin(t*0.12))*12, 26, 40);
-  ctx.fillStyle='#cfe6ff'; ctx.font='13px Inter'; ctx.fillText('Neon Runner',10,18);
-});
-setupThumbCanvas('thumb-shooter', (ctx,w,h,t)=>{
-  ctx.fillStyle='#041018'; ctx.fillRect(0,0,w,h);
-  const bx = (t*4) % w;
-  ctx.fillStyle='#8f6bff'; ctx.fillRect(30, h/2-10, 36, 20);
-  ctx.fillStyle='#02b3ff'; ctx.fillRect(bx, h/2-3, 10,6);
-  ctx.fillStyle='#cfe6ff'; ctx.font='13px Inter'; ctx.fillText('Pixel Shooter',10,18);
-});
-setupThumbCanvas('thumb-racer', (ctx,w,h,t)=>{
-  ctx.fillStyle='#021018'; ctx.fillRect(0,0,w,h);
-  ctx.strokeStyle='#083d49'; ctx.lineWidth=18; ctx.beginPath(); ctx.ellipse(w/2,h/2,120,70,0,0,Math.PI*2); ctx.stroke();
-  const ang = t*0.06;
-  const cx = w/2 + Math.cos(ang)*100; const cy = h/2 + Math.sin(ang)*50;
-  ctx.fillStyle='#8f6bff'; ctx.fillRect(cx-8,cy-6,16,12);
-  ctx.fillStyle='#cfe6ff'; ctx.font='13px Inter'; ctx.fillText('Sky Racer',10,18);
-});
-setupThumbCanvas('thumb-jumper', (ctx,w,h,t)=>{
-  ctx.fillStyle='#05121a'; ctx.fillRect(0,0,w,h);
-  ctx.fillStyle='#0e2b2f'; ctx.fillRect(0,h-60,w,60);
-  ctx.fillStyle='#ffd966'; ctx.beginPath(); ctx.arc(w-60, h-100 + Math.sin(t*0.12)*10, 12,0,Math.PI*2); ctx.fill();
-  ctx.fillStyle='#cfe6ff'; ctx.font='13px Inter'; ctx.fillText('Block Jumper',10,18);
-});
-
-/* ------------------------
-  Games: implemented as modules with init(canvas) => teardownFn
--------------------------*/
-const GameModules = {};
-
-/* 1) Neon Runner: endless runner */
-GameModules.runner = {
-  name: 'Neon Runner',
-  init(canvas){
-    fitToContainer(canvas);
-    const ctx = canvas.getContext('2d');
-    const dpr = window.devicePixelRatio || 1;
-    let w = canvas.width / dpr, h = canvas.height / dpr;
-    let last = performance.now(), frameId;
-    const player = {x:80, y:h-90, vy:0, w:28, h:40, onGround:true};
-    const gravity = 1600;
-    const obstacles = [];
-    let spawnTimer = 0;
-    let speed = 220;
-    let score = 0, alive=true, paused=false;
-    const keys = {};
-    function resize(){ fitToContainer(canvas); w = canvas.width/dpr; h = canvas.height/dpr; player.y = Math.min(player.y, h-90); }
-    window.addEventListener('resize', resize);
-
-    function spawnObstacle(){
-      const height = 20 + Math.random()*40;
-      obstacles.push({x:w + 40, y:h-60 - (Math.random()*30), w:20 + Math.random()*30, h:height});
-    }
-
-    function update(dt){
-      if(paused || !alive) return;
-      // movement & physics
-      if((keys['ArrowUp']||keys[' ']||keys['w']) && player.onGround){ player.vy = -520; player.onGround=false; }
-      player.vy += gravity*dt; player.y += player.vy*dt;
-      if(player.y >= h-90){ player.y = h-90; player.vy = 0; player.onGround = true; }
-      // obstacles
-      spawnTimer -= dt;
-      if(spawnTimer <= 0){ spawnTimer = 0.9 - Math.min(0.6, score*0.002); spawnObstacle(); }
-      for(let i=obstacles.length-1;i>=0;i--){
-        obstacles[i].x -= speed * dt;
-        if(obstacles[i].x + obstacles[i].w < -40) obstacles.splice(i,1);
-        // collision
-        const o = obstacles[i];
-        if(player.x < o.x + o.w && player.x + player.w > o.x && player.y < o.y + o.h && player.y + player.h > o.y){
-          alive = false;
-        }
-      }
-      score += dt*10;
-      speed += dt*0.6; // ramp
-    }
-
-    function draw(){
-      // background
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.save(); ctx.scale(dpr,dpr);
-      ctx.fillStyle = '#031018'; ctx.fillRect(0,0,w,h);
-      // ground
-      ctx.fillStyle = '#0a2633'; ctx.fillRect(0,h-60,w,60);
-      // player
-      ctx.fillStyle = '#8f6bff'; ctx.fillRect(player.x, player.y, player.w, player.h);
-      // obstacles
-      ctx.fillStyle = '#ff8a7a';
-      obstacles.forEach(o=> ctx.fillRect(o.x, o.y, o.w, o.h));
-      // hud
-      ctx.fillStyle = '#cfe6ff'; ctx.font = '16px Inter'; ctx.fillText('Score: ' + Math.floor(score), 14, 22);
-      if(!alive){ ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(0,0,w,h); ctx.fillStyle = '#ffd966'; ctx.font='28px Inter'; ctx.fillText('Game Over', w/2 - 76, h/2 - 10); ctx.font='14px Inter'; ctx.fillStyle='#cfe6ff'; ctx.fillText('Press Restart', w/2 - 50, h/2 + 14); }
-      if(paused){ ctx.fillStyle='rgba(0,0,0,0.5)'; ctx.fillRect(0,0,w,h); ctx.fillStyle='#cfe6ff'; ctx.font='22px Inter'; ctx.fillText('Paused', w/2 - 36, h/2); }
-      ctx.restore();
-    }
-
-    function loop(now){
-      const dt = Math.min(0.05, (now - last)/1000); last = now;
-      update(dt); draw();
-      frameId = requestAnimationFrame(loop);
-    }
-
-    // input
-    function kd(e){ keys[e.key] = true; if(e.key === ' ' || e.key === 'Spacebar') e.preventDefault(); }
-    function ku(e){ keys[e.key] = false; }
-    window.addEventListener('keydown', kd); window.addEventListener('keyup', ku);
-
-    // touch to jump
-    function touchHandler(){ if(player.onGround) { player.vy = -520; player.onGround=false; } }
-    canvas.addEventListener('touchstart', touchHandler);
-
-    loop(performance.now());
-
-    // teardown / extra controls
-    return function teardown(){
-      cancelAnimationFrame(frameId);
-      window.removeEventListener('keydown', kd); window.removeEventListener('keyup', ku);
-      canvas.removeEventListener('touchstart', touchHandler);
-      window.removeEventListener('resize', resize);
-    };
-  }
-};
-
-/* 3) Sky Racer: simple lap timer (player controlled angle around oval) */
-GameModules.racer = {
-  name:'Sky Racer',
-  init(canvas){
-    fitToContainer(canvas);
-    const ctx = canvas.getContext('2d');
-    const dpr = window.devicePixelRatio || 1;
-    let w = canvas.width/dpr, h = canvas.height/dpr;
-    let last = performance.now(), frameId;
-    let angle = 0, speed = 0.02, laps = 0, paused=false, alive=true;
-    function resize(){ fitToContainer(canvas); w = canvas.width/dpr; h = canvas.height/dpr; }
-    window.addEventListener('resize', resize);
-
-    function update(dt){
-      if(paused || !alive) return;
-      angle += speed * dt * 60;
-      // lap detection
-      if(angle > Math.PI*2){ angle -= Math.PI*2; laps++; if(laps>=3){ alive=false; } }
-    }
-
-    function draw(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.save(); ctx.scale(dpr,dpr);
-      ctx.fillStyle='#021018'; ctx.fillRect(0,0,w,h);
-      // track
-      ctx.strokeStyle='#083d49'; ctx.lineWidth=24; ctx.beginPath(); ctx.ellipse(w/2,h/2,180,110,0,0,Math.PI*2); ctx.stroke();
-      // car
-      const cx = w/2 + Math.cos(angle) * 150; const cy = h/2 + Math.sin(angle) * 90;
-      ctx.fillStyle = '#8f6bff'; ctx.beginPath(); ctx.ellipse(cx,cy,12,8,0,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle='#cfe6ff'; ctx.font='16px Inter'; ctx.fillText('Laps: ' + laps + ' / 3', 12,22);
-      if(!alive){ ctx.fillStyle='rgba(0,0,0,0.6)'; ctx.fillRect(0,0,w,h); ctx.fillStyle='#ffd966'; ctx.font='26px Inter'; ctx.fillText('Race Complete!', w/2 - 90, h/2 - 10); }
-      if(paused){ ctx.fillStyle='rgba(0,0,0,0.5)'; ctx.fillRect(0,0,w,h); ctx.fillStyle='#cfe6ff'; ctx.font='22px Inter'; ctx.fillText('Paused', w/2 - 36, h/2); }
-      ctx.restore();
-    }
-
-    function loop(now){
-      const dt = Math.min(0.05, (now-last)/1000); last = now;
-      update(dt); draw();
-      frameId = requestAnimationFrame(loop);
-    }
-    // controls: speed up/down (arrow keys) & touch tap increases speed
-    function kd(e){ if(e.key==='ArrowLeft'||e.key==='a') speed = Math.max(0.005, speed - 0.004); if(e.key==='ArrowRight'||e.key==='d') speed = Math.min(0.08, speed + 0.006); }
-    window.addEventListener('keydown', kd);
-    canvas.addEventListener('touchstart', ()=>{ speed = Math.min(0.08, speed + 0.01); }, {passive:true});
-
-    loop(performance.now());
-
-    return function teardown(){
-      cancelAnimationFrame(frameId);
-      window.removeEventListener('keydown', kd);
-      window.removeEventListener('resize', resize);
-    };
-  }
-};
-
-/* 4) Block Jumper: timed obstacle hopping */
-GameModules.jumper = {
-  name:'Block Jumper',
-  init(canvas){
-    fitToContainer(canvas);
-    const ctx = canvas.getContext('2d');
-    const dpr = window.devicePixelRatio || 1;
-    let w = canvas.width/dpr, h = canvas.height/dpr;
-    let last = performance.now(), frameId;
-    const player = {x:60, y:h-120, vy:0, w:28, h:40, on:true};
-    const blocks = [];
-    let spawn=0, score=0, alive=true, paused=false;
-    const keys = {};
-    const gravity = 1600;
-    function resize(){ fitToContainer(canvas); w = canvas.width/dpr; h = canvas.height/dpr; player.y = Math.min(player.y, h-120); }
-    window.addEventListener('resize', resize);
-
-    function spawnBlock(){ const bw=40 + Math.random()*60; blocks.push({x:w + 40, y:h-100, w:bw, h:20}); }
-
-    function update(dt){
-      if(paused || !alive) return;
-      // input
-      if((keys['ArrowUp']||keys[' ']||keys['w']) && player.on){ player.vy = -520; player.on=false; }
-      player.vy += gravity*dt; player.y += player.vy*dt;
-      if(player.y >= h-120){ player.y = h-120; player.vy=0; player.on=true; }
-      // blocks
-      spawn -= dt;
-      if(spawn <= 0){ spawn = 0.9 - Math.min(0.5, score*0.001); spawnBlock(); }
-      for(let i=blocks.length-1;i>=0;i--){
-        blocks[i].x -= 220 * dt;
-        if(blocks[i].x + blocks[i].w < -40) blocks.splice(i,1);
-        // collision with top of block
-        const b = blocks[i];
-        if(player.x < b.x + b.w && player.x + player.w > b.x && player.y + player.h > b.y && player.y + player.h < b.y + 40 && player.vy > 0){
-          // land on block
-          player.y = b.y - player.h; player.vy = 0; player.on = true;
-        }
-        // hit sides => gameover
-        if(player.x < b.x + b.w/4 && player.x + player.w > b.x && player.y < b.y + b.h && player.y + player.h > b.y){
-          if(!(player.y + player.h <= b.y)){ alive=false; }
-        }
-      }
-      score += dt*12;
-    }
-
-    function draw(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ctx.save(); ctx.scale(dpr,dpr);
-      ctx.fillStyle='#041018'; ctx.fillRect(0,0,w,h);
-      ctx.fillStyle='#0e2b2f'; ctx.fillRect(0,h-80,w,80);
-      ctx.fillStyle='#8f6bff'; ctx.fillRect(player.x, player.y, player.w, player.h);
-      ctx.fillStyle='#ffd966';
-      blocks.forEach(b=> ctx.fillRect(b.x, b.y, b.w, b.h));
-      ctx.fillStyle='#cfe6ff'; ctx.font='16px Inter'; ctx.fillText('Score: ' + Math.floor(score), 12, 20);
-      if(!alive){ ctx.fillStyle='rgba(0,0,0,0.6)'; ctx.fillRect(0,0,w,h); ctx.fillStyle='#ffd966'; ctx.font='26px Inter'; ctx.fillText('You Crashed', w/2 - 70, h/2 - 10); }
-      if(paused){ ctx.fillStyle='rgba(0,0,0,0.5)'; ctx.fillRect(0,0,w,h); ctx.fillStyle='#cfe6ff'; ctx.font='22px Inter'; ctx.fillText('Paused', w/2 - 36, h/2); }
-      ctx.restore();
-    }
-
-    function loop(now){
-      const dt = Math.min(0.05, (now-last)/1000); last = now;
-      update(dt); draw();
-      frameId = requestAnimationFrame(loop);
-    }
-
-    function kd(e){ keys[e.key] = true; if(e.key === ' ' || e.key === 'Spacebar') e.preventDefault(); }
-    function ku(e){ keys[e.key] = false; }
-    window.addEventListener('keydown', kd); window.addEventListener('keyup', ku);
-    canvas.addEventListener('touchstart', ()=>{ if(player.on){ player.vy = -520; player.on=false; } }, {passive:true});
-
-    loop(performance.now());
-
-    return function teardown(){
-      cancelAnimationFrame(frameId);
-      window.removeEventListener('keydown', kd); window.removeEventListener('keyup', ku);
-      window.removeEventListener('resize', resize);
-    };
-  }
-};
-
-/* ------------------------
-  Overlay management & glue
--------------------------*/
-const overlay = document.getElementById('overlay');
-const gameCanvas = document.getElementById('game-canvas');
-const gameTitle = document.getElementById('game-title');
-const scoreEl = document.getElementById('score');
-const msgEl = document.getElementById('game-msg');
-const pauseBtn = document.getElementById('pauseBtn');
-
-let runningTeardown = null;
-let currentGameKey = null;
-let paused = false;
-
-function openGame(key){
-  currentGameKey = key;
-  gameTitle.textContent = GameModules[key].name;
-  overlay.classList.add('active');
-  overlay.setAttribute('aria-hidden','false');
-  msgEl.textContent = '';
-  scoreEl.textContent = 'Score: 0';
-  // Wait a frame so CSS makes overlay visible and canvas has size
-  requestAnimationFrame(()=>{
-    fitToContainer(gameCanvas);
-    if(runningTeardown) { try{ runningTeardown(); }catch{} runningTeardown = null; }
-    runningTeardown = GameModules[key].init(gameCanvas);
-    // reset pause UI
-    paused = false;
-    pauseBtn.textContent = 'Pause';
-  });
-}
-
-// close overlay and cleanup
-function closeOverlay(){
-  overlay.classList.remove('active');
-  overlay.setAttribute('aria-hidden','true');
-  if(runningTeardown){ try{ runningTeardown(); }catch{} runningTeardown = null; }
-  currentGameKey = null;
-}
-
-// Restart: simply re-open current game
-function restartGame(){
-  if(currentGameKey){
-    if(runningTeardown) runningTeardown();
-    fitToContainer(gameCanvas);
-    runningTeardown = GameModules[currentGameKey].init(gameCanvas);
-  }
-}
-
-pauseBtn.addEventListener('click', ()=>{
-  // simple UX: reload overlay to toggle pause if module supports it; here we simulate by toggling a global paused flag and showing label
-  paused = !paused;
-  pauseBtn.textContent = paused ? 'Resume' : 'Pause';
-  // For simplicity, many modules check 'paused' from outer scope — but our modules use internal paused variables.
-  // So we inform user and visually indicate only.
-  msgEl.textContent = paused ? 'Paused (overlay toggle)' : '';
-});
-
-// keyboard: ESC to close
-document.addEventListener('keydown', (e)=>{
-  if(e.key === 'Escape' && overlay.classList.contains('active')) closeOverlay();
-});
-
-/* Preview strips */
-function preview(key){
-  const strip = document.getElementById('strip-' + key);
-  if(!strip) return;
-  strip.hidden = false;
-  strip.style.animation = 'none';
-  void strip.offsetWidth;
-  strip.style.animation = null;
-  setTimeout(()=> strip.hidden = true, 1200);
-}
-
-/* make clicking thumbnail open game */
-document.querySelectorAll('.thumb').forEach(el=>{
-  el.addEventListener('click', ()=> openGame(el.getAttribute('data-game')));
-  el.addEventListener('keypress', (e)=>{ if(e.key === 'Enter') openGame(el.getAttribute('data-game')); });
-});
-
-/* Accessibility note: stop running games when page hidden */
-document.addEventListener('visibilitychange', ()=>{
-  if(document.hidden && runningTeardown){ /* best effort */ }
-});
-
-/* Simple instruction: tie overlay score updates if modules used internal props */
-(function provideSimpleScorePolling(){
-  // Many modules draw score internally; for demo, we poll canvas pixels to provide no score.
-  // Instead we show placeholder text.
-  setInterval(()=>{
-    if(overlay.classList.contains('active')){
-      scoreEl.textContent = 'Score: —';
-    }
-  }, 800);
-})();
 </script>
 </body>
 </html>
