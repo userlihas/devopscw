@@ -618,26 +618,34 @@ const gameCanvas = document.getElementById('gameCanvas');
 let currentTearDown = null;
 let currentGameKey = null;
 
+function resizeGameCanvas() {
+  // Set resolution to match CSS size
+  gameCanvas.width = gameCanvas.clientWidth * devicePixelRatio;
+  gameCanvas.height = gameCanvas.clientHeight * devicePixelRatio;
+}
+
 function openGame(key){
   currentGameKey = key;
   overlayTitle.textContent = games[key].name;
   overlay.classList.add('active');
-  // clear previous
-  if(currentTearDown) currentTearDown();
-  // init game with downsized HiDPI scaling
-  gameCanvas.width = gameCanvas.clientWidth;
-  gameCanvas.height = gameCanvas.clientHeight;
-  currentTearDown = games[key].init(gameCanvas);
-  document.getElementById('overlay-score').textContent = '';
+
+  // Allow browser to render overlay before measuring size
+  requestAnimationFrame(() => {
+    resizeGameCanvas();
+    if(currentTearDown) currentTearDown();
+    currentTearDown = games[key].init(gameCanvas);
+  });
 }
 
 function closeOverlay(){
   overlay.classList.remove('active');
-  if(currentTearDown) currentTearDown(); currentTearDown = null;
+  if(currentTearDown) currentTearDown(); 
+  currentTearDown = null;
 }
 
 function restartOverlay(){
   if(currentGameKey){
+    resizeGameCanvas();
     if(currentTearDown) currentTearDown();
     currentTearDown = games[currentGameKey].init(gameCanvas);
   }
@@ -686,6 +694,10 @@ document.addEventListener('keydown', (e)=>{
 window.addEventListener('scroll', ()=>{
   const y = window.scrollY;
   threeWrap.style.transform = `translateY(${y*0.02}px) scale(${1 - Math.min(0.06, y/4000)})`;
+});
+
+window.addEventListener('resize', () => {
+  if(overlay.classList.contains('active')) resizeGameCanvas();
 });
 
 /* tiny performance: stop three.js when page hidden */
