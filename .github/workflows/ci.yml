@@ -12,6 +12,18 @@ jobs:
       SERVER_IP: ${{ vars.SERVER_IP }}
 
     steps:
+      # Checkout code
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full clone for SonarQube relevance
+
+      # SonarQube Scan
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
       - uses: actions/checkout@v3
 
       - name: "Build Docker Image"
