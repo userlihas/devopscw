@@ -1,220 +1,1110 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Quiet Corner — A calm personal site</title>
-
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>
-  :root{
-    --bg: #0b1220;
-    --panel: rgba(255,255,255,0.03);
-    --muted: #9fb0c5;
-    --accent: #8c6ff0;
-    --accent-2: #6fd3ff;
-    --glass: rgba(255,255,255,0.02);
-    --radius: 14px;
-    --max-width: 1000px;
-  }
-
-  /* Base */
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:
-    linear-gradient(180deg,#071022 0%, #050810 100%);color:#e8f4ff;-webkit-font-smoothing:antialiased}
-  a{color:inherit}
-  .wrap{max-width:var(--max-width);margin:36px auto;padding:24px;display:grid;grid-template-columns:320px 1fr;gap:28px;align-items:start}
-  @media (max-width:880px){ .wrap{grid-template-columns:1fr;padding:18px} }
-
-  /* Left column - Quiet profile */
-  .panel{background:linear-gradient(180deg,var(--panel), rgba(255,255,255,0.01));border-radius:var(--radius);padding:18px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(12,18,26,0.6)}
-  .avatar{width:96px;height:96px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#07101a;font-size:28px;box-shadow:0 10px 40px rgba(110,80,240,0.12)}
-  .name{font-weight:700;font-size:18px;margin-top:12px}
-  .title{color:var(--muted);font-size:13px;margin-top:4px}
-  .bio{margin-top:12px;color:var(--muted);line-height:1.5;font-size:14px}
-  .soft-list{margin-top:14px;display:flex;flex-direction:column;gap:8px}
-  .chip{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;font-size:13px;border:1px solid rgba(255,255,255,0.02)}
-
-  /* Right column - content */
-  .hero{background:linear-gradient(135deg, rgba(140,111,240,0.06), rgba(111,211,255,0.03));padding:18px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.02);display:flex;align-items:center;gap:18px;backdrop-filter:blur(4px)}
-  .hero h1{margin:0;font-size:20px}
-  .hero p{margin:0;color:var(--muted);font-size:14px}
-
-  /* sections */
-  section{margin-top:22px}
-  h2{margin:0 0 10px 0;font-size:16px}
-  .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
-  .grid-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  @media (max-width:880px){ .grid-photos{grid-template-columns:repeat(2,1fr)} }
-  .photo{height:92px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.015)}
-
-  /* contact */
-  .contact-form{display:flex;flex-direction:column;gap:10px}
-  .contact-form input,.contact-form textarea{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:10px;border-radius:10px;color:inherit;outline:none;font-size:14px}
-  .contact-form textarea{min-height:96px;resize:vertical}
-  .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:#07101a;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;box-shadow:0 10px 30px rgba(110,80,240,0.08)}
-  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--muted);padding:10px;border-radius:10px;cursor:pointer}
-
-  /* subtle micro interactions */
-  .fade-in{opacity:0;transform:translateY(8px);animation:fadeIn .6s ease forwards}
-  .fade-in.delay-1{animation-delay:0.06s}
-  .fade-in.delay-2{animation-delay:0.12s}
-  .fade-in.delay-3{animation-delay:0.18s}
-  @keyframes fadeIn{to{opacity:1;transform:none}}
-
-  .soft-focus{transition:box-shadow .18s, transform .18s}
-  .soft-focus:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(7,12,24,0.6)}
-
-  footer{margin-top:28px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-
-  /* accessibility helpers */
-  .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahil Gurung - Ninja Developer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Orbitron:wght@300;400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ff6b35;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-trail {
+            width: 4px;
+            height: 4px;
+            background: #ff6b35;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.7;
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a2e);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 1s ease;
+        }
+        
+        .chakra-loader {
+            width: 80px;
+            height: 80px;
+            border: 3px solid rgba(255, 107, 53, 0.3);
+            border-top: 3px solid #ff6b35;
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 18px;
+            color: #ff6b35;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* 3D Canvas */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff6b35;
+            text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff6b35;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover {
+            color: #ff6b35;
+            text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e, #ffd700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(255, 107, 53, 0.6)); }
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: #a0a0a0;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: slideUp 1s ease 0.5s forwards;
+        }
+        
+        .kanji {
+            position: absolute;
+            font-size: 200px;
+            color: rgba(255, 107, 53, 0.1);
+            font-family: 'Cinzel', serif;
+            animation: float 6s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            padding: 100px 50px;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-family: 'Cinzel', serif;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #ff6b35, #ffd700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+        
+        .about-content.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .about-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            animation: rotate 20s linear infinite;
+            box-shadow: 0 0 50px rgba(255, 107, 53, 0.3);
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .about-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #a0a0a0;
+        }
+        
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        
+        .skill-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px) rotateX(10deg);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.2);
+            border-color: #ff6b35;
+        }
+        
+        .skill-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #ff6b35;
+        }
+        
+        .skill-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .skill-desc {
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            transform: scale(0.9) rotateY(15deg);
+            opacity: 0;
+        }
+        
+        .project-card.visible {
+            transform: scale(1) rotateY(0deg);
+            opacity: 1;
+        }
+        
+        .project-card:hover {
+            transform: scale(1.05) rotateY(-5deg);
+            box-shadow: 0 30px 60px rgba(255, 107, 53, 0.3);
+        }
+        
+        .project-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff6b35;
+            margin-bottom: 15px;
+        }
+        
+        .project-desc {
+            color: #a0a0a0;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 20px;
+            padding: 50px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .contact-form.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ff6b35;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Orbitron', monospace;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        /* Particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff6b35;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: particle-float 8s linear infinite;
+        }
+        
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .section {
+                padding: 50px 20px;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .about-image {
+                width: 200px;
+                height: 200px;
+                font-size: 80px;
+                margin: 0 auto;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap" role="main">
-    <!-- LEFT: profile -->
-    <aside class="panel fade-in" aria-label="Profile">
-      <div style="display:flex;flex-direction:column;align-items:center">
-        <div class="avatar" aria-hidden="true">Q</div>
-        <div class="name">Quiet Corner</div>
-        <div class="title">Introvert • Observer • Maker</div>
-      </div>
-
-      <p class="bio soft-focus fade-in delay-1">
-        Hello — this is a calm place. I prefer thoughtful conversations, slow mornings, and quiet creativity.
-        I build small things, sketch ideas, and recharge on walks.
-      </p>
-
-      <div class="soft-list fade-in delay-2" aria-hidden="true">
-        <div class="chip">Likes: tea, books, small projects</div>
-        <div class="chip">Works: design, coding, writing</div>
-        <div class="chip">Quiet rules: one message at a time</div>
-      </div>
-
-      <div style="margin-top:14px" class="fade-in delay-3">
-        <button class="btn-ghost" onclick="document.getElementById('contact-name').focus()" aria-label="Start contact">Send a brief hello</button>
-      </div>
-    </aside>
-
-    <!-- RIGHT: content -->
-    <div>
-      <div class="hero fade-in" role="region" aria-labelledby="hero-title">
-        <div style="flex:1">
-          <h1 id="hero-title">A calm corner for quiet people</h1>
-          <p class="lead" style="margin-top:8px;color:var(--muted)">Slow down. Breathe. You're welcome to read, browse, or send a short note — no pressure.</p>
-        </div>
-        <div style="min-width:120px;text-align:right;color:var(--muted);font-size:13px">Soft · Minimal · Private</div>
-      </div>
-
-      <section class="card fade-in delay-1" aria-labelledby="about-h">
-        <h2 id="about-h">About</h2>
-        <p style="margin-top:8px;color:var(--muted);line-height:1.6">
-          I value clarity, space, and depth. My ideal day includes a quiet morning, a focused project session, and an evening walk.
-          This site shares small things — thoughts, images, and a way to connect without overwhelming noise.
-        </p>
-      </section>
-
-      <section class="card fade-in delay-2" aria-labelledby="gallery-h" style="margin-top:18px">
-        <h2 id="gallery-h">Soft Gallery</h2>
-        <div class="grid-photos" style="margin-top:12px" aria-hidden="false">
-          <div class="photo soft-focus">Evening walk</div>
-          <div class="photo soft-focus">A quiet desk</div>
-          <div class="photo soft-focus">A small sketch</div>
-          <div class="photo soft-focus">A cozy window</div>
-          <div class="photo soft-focus">Tea & a book</div>
-          <div class="photo soft-focus">Minimal tools</div>
-        </div>
-      </section>
-
-      <section class="card fade-in delay-3" aria-labelledby="contact-h" style="margin-top:18px">
-        <h2 id="contact-h">Contact</h2>
-        <p class="small" style="margin-top:6px;color:var(--muted)">If you'd like to reach out, keep it short — a single question or a hello is perfect.</p>
-
-        <form class="contact-form" onsubmit="handleContact(event)" aria-label="Contact form">
-          <label class="visually-hidden" for="contact-name">Name</label>
-          <input id="contact-name" name="name" placeholder="Your first name (optional)" autocomplete="name" />
-
-          <label class="visually-hidden" for="contact-email">Email</label>
-          <input id="contact-email" name="email" type="email" placeholder="Email (optional, so I can reply)" autocomplete="email" />
-
-          <label class="visually-hidden" for="contact-msg">Message</label>
-          <textarea id="contact-msg" name="message" placeholder="A short hello or question — 1–2 sentences recommended"></textarea>
-
-          <div style="display:flex;gap:8px;align-items:center;margin-top:6px">
-            <button type="submit" class="btn">Send</button>
-            <button type="button" class="btn-ghost" onclick="prefillShort()">Write short example</button>
-          </div>
-
-          <div id="contact-note" style="margin-top:8px;color:var(--muted);font-size:13px">
-            This demo opens your email client — no data is stored here.
-          </div>
-        </form>
-      </section>
-
-      <footer class="fade-in" style="margin-top:18px">
-        <div>Quiet Corner — small site, gentle presence</div>
-        <div style="color:var(--muted)">Built for introverts • Gentle UI</div>
-      </footer>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="chakra-loader"></div>
+        <div class="loading-text">Loading Ninja Portfolio...</div>
     </div>
-  </div>
-
-<script>
-  // No external dependencies. All functions intentionally minimal & error-free.
-
-  function prefillShort(){
-    const msg = document.getElementById('contact-msg');
-    msg.value = "Hi — I liked your site. Would you like to chat about [topic]?";
-    msg.focus();
-  }
-
-  function handleContact(event){
-    event.preventDefault();
-    // Read form values
-    const name = (document.getElementById('contact-name').value || '').trim();
-    const email = (document.getElementById('contact-email').value || '').trim();
-    const message = (document.getElementById('contact-msg').value || '').trim();
-
-    // Keep message short — gentle validation
-    if(message.length === 0){
-      showNote('Please write a short message (one or two sentences is fine).', true);
-      return;
-    }
-    if(message.length > 800){
-      showNote('Message is a bit long — consider shortening to 1–2 short paragraphs.', true);
-      return;
-    }
-
-    // Compose a mailto (client-side only). Use a calm subject and minimal info.
-    const subject = encodeURIComponent(name ? `Hello from ${name}` : 'Hello');
-    const body = encodeURIComponent(message + (email ? `\n\nReply to: ${email}` : '\n\n'));
-    // Replace email below with the real recipient if needed.
-    const recipient = 'hello@example.com';
-
-    // Open mail client in a new window/tab
-    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
-
-    // Friendly UI note
-    showNote('Opening your mail client — thank you for the thoughtful message.');
-  }
-
-  function showNote(text, isError){
-    const el = document.getElementById('contact-note');
-    el.textContent = text;
-    el.style.color = isError ? '#ffb3b3' : 'var(--muted)';
-    // revert after a while
-    setTimeout(()=>{ el.textContent = 'This demo opens your email client — no data is stored here.'; el.style.color = 'var(--muted)'; }, 6000);
-  }
-
-  // Small accessibility: focus outline only when navigating by keyboard
-  (function keyboardFocusOutline(){
-    function handleKey(e){
-      if(e.key === 'Tab') document.documentElement.style.setProperty('--focus-show','auto');
-    }
-    window.addEventListener('keydown', handleKey, {once:true});
-  })();
-</script>
+    
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    
+    <!-- 3D Canvas -->
+    <canvas id="canvas"></canvas>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">忍者 SAHIL</div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="kanji">忍</div>
+        <h1 class="hero-title">SAHIL GURUNG</h1>
+        <p class="hero-subtitle">Full-Stack Ninja Developer</p>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About the Ninja</h2>
+            <div class="about-content">
+                <div class="about-image">🥷</div>
+                <div class="about-text">
+                    <p>Passionate and results-driven Full-Stack Developer with expertise in Flutter (mobile & web), Node.js, and MongoDB. Experienced in designing and developing scalable applications, following industry-standard UI/UX principles and RESTful APIs.</p>
+                    <br>
+                    <p>Strong problem-solving skills and a keen interest in cloud computing (AWS, Firebase) to enhance application performance and scalability. Like a true ninja, I work in the shadows to bring your digital visions to life.</p>
+                    <br>
+                    <p><strong>Location:</strong> Kathmandu, Nepal</p>
+                    <p><strong>Phone:</strong> +977 9826110836</p>
+                    <p><strong>Email:</strong> 1sahilisbusy1@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">Ninja Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">⚡</div>
+                    <h3 class="skill-name">Fullstack Jutsu</h3>
+                    <p class="skill-desc">Flutter, React, Node.js, Express.js - Creating stunning user interfaces with lightning speed</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🗄️</div>
+                    <h3 class="skill-name">Database Mastery</h3>
+                    <p class="skill-desc">MySQL, PostgreSQL, Firebase - Storing and managing data like ancient scrolls</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">☁️</div>
+                    <h3 class="skill-name">Cloud Techniques</h3>
+                    <p class="skill-desc">AWS - Deploying applications across the digital realm</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🔧</div>
+                    <h3 class="skill-name">Developer Tools</h3>
+                    <p class="skill-desc">Git, GitHub, UI/UX Design, Figma - Crafting with precision and collaboration</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📱</div>
+                    <h3 class="skill-name">Mobile Arts</h3>
+                    <p class="skill-desc">Flutter mobile development - Creating cross-platform applications</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🎯</div>
+                    <h3 class="skill-name">Languages</h3>
+                    <p class="skill-desc">Dart, C#, Python, Java, Node.js, Express.js - Speaking multiple coding dialects</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+<!--     <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Shadow Clone Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3 class="project-title">D. Cube IT Solutions (Intern)</h3>
+                    <p class="project-desc">Developed and maintained mobile and web applications using Flutter and Node.js. Assisted in backend development and database management using MySQL. Debugged and optimized applications for better performance and user experience.</p>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Final Year Project - Zing Closet</h3>
+                    <p class="project-desc">E-commerce Application - Developed a mobile shopping platform for clothing brands. Implemented secure authentication, cart system and payment integration. Used Flutter for frontend, Node.js for backend, and MySQL for data storage.</p>
+                </div>
+                <!-- <div class="project-card">
+                    <h3 class="project-title">Full-Stack Web Applications</h3>
+                    <p class="project-desc">Multiple projects involving RESTful API development, responsive web design, and database optimization. Focus on scalable architecture and modern development practices.</p>
+                </div> -->
+            </div>
+        </div>
+    </section> -->
+    
+    <!-- Contact Section -->
+<!--     <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Send a Message Scroll</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message 🥷</button>
+            </form>
+        </div>
+    </section> -->
+    
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 1000);
+            }, 2000);
+        });
+        
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const trails = [];
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+            
+            // Create trail effect
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = e.clientX - 2 + 'px';
+            trail.style.top = e.clientY - 2 + 'px';
+            document.body.appendChild(trail);
+            
+            trails.push(trail);
+            
+            setTimeout(() => {
+                trail.style.opacity = '0';
+                setTimeout(() => {
+                    if (trail.parentNode) {
+                        trail.parentNode.removeChild(trail);
+                    }
+                    trails.splice(trails.indexOf(trail), 1);
+                }, 300);
+            }, 100);
+        });
+        
+        // 3D Scene Setup
+        let scene, camera, renderer, ninja, particles = [];
+        
+        function init3D() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            
+            // Create ninja character (simple geometric representation)
+            const ninjaGeometry = new THREE.CylinderGeometry(0.3, 0.5, 2, 8);
+            const ninjaMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0x2c3e50,
+                transparent: true,
+                opacity: 0.8
+            });
+            ninja = new THREE.Mesh(ninjaGeometry, ninjaMaterial);
+            ninja.position.set(2, 0, -5);
+            scene.add(ninja);
+            
+            // Add head
+            const headGeometry = new THREE.SphereGeometry(0.4, 16, 16);
+            const headMaterial = new THREE.MeshPhongMaterial({ color: 0xffdbac });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            head.position.set(0, 1.2, 0);
+            ninja.add(head);
+            
+            // Create chakra particles
+            for (let i = 0; i < 50; i++) {
+                const particleGeometry = new THREE.SphereGeometry(0.02, 8, 8);
+                const particleMaterial = new THREE.MeshBasicMaterial({ 
+                    color: 0xff6b35,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                const particle = new THREE.Mesh(particleGeometry, particleMaterial);
+                
+                particle.position.x = (Math.random() - 0.5) * 20;
+                particle.position.y = (Math.random() - 0.5) * 20;
+                particle.position.z = (Math.random() - 0.5) * 20;
+                
+                particle.velocity = {
+                    x: (Math.random() - 0.5) * 0.02,
+                    y: Math.random() * 0.02,
+                    z: (Math.random() - 0.5) * 0.02
+                };
+                
+                particles.push(particle);
+                scene.add(particle);
+            }
+            
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xff6b35, 1);
+            directionalLight.position.set(5, 5, 5);
+            scene.add(directionalLight);
+            
+            const pointLight = new THREE.PointLight(0xffd700, 0.8, 10);
+            pointLight.position.set(-5, 3, 2);
+            scene.add(pointLight);
+            
+            camera.position.z = 5;
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Animate ninja
+            if (ninja) {
+                ninja.rotation.y += 0.005;
+                ninja.position.y = Math.sin(Date.now() * 0.001) * 0.1;
+            }
+            
+            // Animate particles
+            particles.forEach(particle => {
+                particle.position.x += particle.velocity.x;
+                particle.position.y += particle.velocity.y;
+                particle.position.z += particle.velocity.z;
+                
+                // Reset particles that go out of bounds
+                if (particle.position.y > 10) particle.position.y = -10;
+                if (particle.position.x > 10) particle.position.x = -10;
+                if (particle.position.x < -10) particle.position.x = 10;
+                if (particle.position.z > 10) particle.position.z = -10;
+                if (particle.position.z < -10) particle.position.z = 10;
+                
+                particle.rotation.x += 0.01;
+                particle.rotation.y += 0.01;
+            });
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Initialize 3D scene
+        init3D();
+        animate();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // Scroll animations
+        function isElementVisible(element) {
+            const rect = element.getBoundingClientRect();
+            return rect.top < window.innerHeight && rect.bottom > 0;
+        }
+        
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.section-title, .about-content, .skill-card, .project-card, .contact-form');
+            
+            elements.forEach((element, index) => {
+                if (isElementVisible(element)) {
+                    setTimeout(() => {
+                        element.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', handleScrollAnimations);
+        window.addEventListener('load', handleScrollAnimations);
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Create floating particles
+        function createFloatingParticles() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                    document.body.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 8000);
+                }, i * 400);
+            }
+        }
+        
+        // Start particle system
+        createFloatingParticles();
+        setInterval(createFloatingParticles, 8000);
+        
+        // Mouse interaction effects
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            const mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            
+            // Move 3D scene based on mouse
+            if (camera) {
+                camera.position.x = mouseX * 0.5;
+                camera.position.y = mouseY * 0.5;
+                camera.lookAt(scene.position);
+            }
+            
+            // Parallax effect for kanji
+            const kanji = document.querySelector('.kanji');
+            if (kanji) {
+                kanji.style.transform = `translateY(${-mouseY * 20}px) translateX(${-mouseX * 20}px) rotate(${mouseX * 5}deg)`;
+            }
+        });
+        
+        // Hover effects for cards
+        document.querySelectorAll('.skill-card, .project-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(2)';
+                cursor.style.borderColor = '#ffd700';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.borderColor = '#ff6b35';
+            });
+        });
+        
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Create shadow clone effect
+            const form = e.target;
+            const clone = form.cloneNode(true);
+            clone.style.position = 'absolute';
+            clone.style.opacity = '0.5';
+            clone.style.transform = 'translateX(20px)';
+            clone.style.pointerEvents = 'none';
+            form.parentNode.appendChild(clone);
+            
+            setTimeout(() => {
+                clone.remove();
+            }, 1000);
+            
+            // Show success message
+            const submitBtn = form.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Message Sent! 🥷✨';
+            submitBtn.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
+            
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.style.background = 'linear-gradient(45deg, #ff6b35, #f7931e)';
+                form.reset();
+            }, 3000);
+        });
+        
+        // Easter egg - Shadow Clone Jutsu
+        let clickCount = 0;
+        document.querySelector('.hero-title').addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 3) {
+                createShadowClones();
+                clickCount = 0;
+            }
+        });
+        
+        function createShadowClones() {
+            const title = document.querySelector('.hero-title');
+            const rect = title.getBoundingClientRect();
+            
+            for (let i = 0; i < 3; i++) {
+                const clone = title.cloneNode(true);
+                clone.style.position = 'fixed';
+                clone.style.left = rect.left + 'px';
+                clone.style.top = rect.top + 'px';
+                clone.style.opacity = '0.3';
+                clone.style.pointerEvents = 'none';
+                clone.style.zIndex = '999';
+                document.body.appendChild(clone);
+                
+                // Animate clones
+                setTimeout(() => {
+                    clone.style.transition = 'all 2s ease-out';
+                    clone.style.transform = `translateX(${(i - 1) * 200}px) translateY(${(i - 1) * 100}px) scale(0.8)`;
+                    clone.style.opacity = '0';
+                }, 100);
+                
+                setTimeout(() => {
+                    clone.remove();
+                }, 2100);
+            }
+        }
+        
+        // Chakra mode toggle (light/dark theme)
+        let chakraMode = 'dark';
+        const chakraToggle = document.createElement('div');
+        chakraToggle.innerHTML = '⚡';
+        chakraToggle.style.cssText = `
+            position: fixed;
+            top: 50%;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b35, #ffd700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            font-size: 24px;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+        `;
+        document.body.appendChild(chakraToggle);
+        
+        chakraToggle.addEventListener('click', () => {
+            chakraMode = chakraMode === 'dark' ? 'light' : 'dark';
+            
+            if (chakraMode === 'light') {
+                document.body.style.background = 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%)';
+                document.body.style.color = '#333';
+                chakraToggle.innerHTML = '🌙';
+            } else {
+                document.body.style.background = 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%)';
+                document.body.style.color = '#fff';
+                chakraToggle.innerHTML = '⚡';
+            }
+            
+            // Add chakra burst effect
+            const burst = document.createElement('div');
+            burst.style.cssText = `
+                position: fixed;
+                top: 50%;
+                right: 30px;
+                width: 100px;
+                height: 100px;
+                border: 2px solid ${chakraMode === 'light' ? '#ffd700' : '#ff6b35'};
+                border-radius: 50%;
+                transform: translate(50%, -50%);
+                animation: chakraBurst 0.6s ease-out;
+                pointer-events: none;
+                z-index: 1000;
+            `;
+            document.body.appendChild(burst);
+            
+            setTimeout(() => burst.remove(), 600);
+        });
+        
+        // Add chakra burst animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes chakraBurst {
+                0% {
+                    transform: translate(50%, -50%) scale(0.5);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(50%, -50%) scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Scroll-triggered camera movement
+        window.addEventListener('scroll', () => {
+            const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            
+            if (camera && ninja) {
+                camera.position.z = 5 - scrollProgress * 2;
+                ninja.rotation.y = scrollProgress * Math.PI * 2;
+                
+                // Change ninja position based on scroll
+                ninja.position.x = Math.sin(scrollProgress * Math.PI * 4) * 3;
+                ninja.position.z = -5 - scrollProgress * 5;
+            }
+        });
+        
+        // Add wind sound effect (visual representation)
+        function createWindEffect() {
+            const windLines = [];
+            for (let i = 0; i < 5; i++) {
+                const line = document.createElement('div');
+                line.style.cssText = `
+                    position: fixed;
+                    width: 200px;
+                    height: 2px;
+                    background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.3), transparent);
+                    top: ${Math.random() * 100}%;
+                    left: -200px;
+                    z-index: -1;
+                    animation: windMove 4s linear infinite;
+                    animation-delay: ${i * 0.8}s;
+                `;
+                document.body.appendChild(line);
+                windLines.push(line);
+                
+                setTimeout(() => {
+                    line.remove();
+                }, 4000 + i * 800);
+            }
+        }
+        
+        // Add wind animation
+        const windStyle = document.createElement('style');
+        windStyle.textContent = `
+            @keyframes windMove {
+                0% {
+                    transform: translateX(0);
+                    opacity: 0;
+                }
+                20% {
+                    opacity: 1;
+                }
+                80% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateX(calc(100vw + 200px));
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(windStyle);
+        
+        // Trigger wind effect periodically
+        setInterval(createWindEffect, 6000);
+        
+        // Add typing effect to hero subtitle
+        const subtitle = document.querySelector('.hero-subtitle');
+        const originalText = subtitle.textContent;
+        subtitle.textContent = '';
+        
+        setTimeout(() => {
+            let i = 0;
+            const typeInterval = setInterval(() => {
+                subtitle.textContent += originalText[i];
+                i++;
+                if (i >= originalText.length) {
+                    clearInterval(typeInterval);
+                }
+            }, 100);
+        }, 1500);
+        
+        // Performance optimization - reduce particles on mobile
+        if (window.innerWidth < 768) {
+            particles.forEach((particle, index) => {
+                if (index > 20) {
+                    scene.remove(particle);
+                }
+            });
+            particles = particles.slice(0, 20);
+        }
+        
+        console.log('🥷 Ninja Portfolio Loaded Successfully! 🥷');
+        console.log('Easter Egg: Click the title 3 times for Shadow Clone Jutsu!');
+    </script>
 </body>
 </html>
