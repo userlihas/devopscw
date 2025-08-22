@@ -1,57 +1,63 @@
 name: "Deploy to Server"
 
+# Trigger deployment only when code is pushed to the main branch
 on:
   push:
-      branches:
-        - main
+    branches:
+      - main
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner for consistency and compatibility
     env:
-      SERVER_IP: ${{ vars.SERVER_IP }}
+      SERVER_IP: ${{ vars.SERVER_IP }}  # Inject server IP from GitHub environment variables
 
     steps:
-      # Checkout code
+      # Step 1: Checkout the repository code (full clone for SonarQube to analyze history)
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full clone for SonarQube relevance
+          fetch-depth: 0  # Ensures full commit history is available for SonarQube analysis
 
-      # SonarQube Scan
+      # Step 2: Run SonarQube static code analysis to catch bugs, code smells, and vulnerabilities
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Auth token for SonarQube
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}  # SonarQube server URL
 
+      # Step 3: Re-checkout code (optional redundancy—can be removed if not needed)
       - uses: actions/checkout@v3
 
+      # Step 4: Build and push Docker image to DockerHub
       - name: "Build Docker Image"
         run: |
-          docker login -u sahilgurung13 -p $DOCKERHUB_PAT
-          docker build -t sahilgurung13/devopscw .
-          docker push sahilgurung13/devopscw
+          docker login -u sahilgurung13 -p $DOCKERHUB_PAT  # Authenticate with DockerHub
+          docker build -t sahilgurung13/devopscw .         # Build image from Dockerfile
+          docker push sahilgurung13/devopscw               # Push image to DockerHub
         env:
-          DOCKERHUB_PAT: ${{ secrets.DOCKERHUB_PAT }}
+          DOCKERHUB_PAT: ${{ secrets.DOCKERHUB_PAT }}  # DockerHub personal access token
 
+      # Step 5: Prepare SSH configuration to allow secure remote access
       - name: "Configure SSH"
         run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-          touch ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/known_hosts
-      
+          mkdir -p ~/.ssh                      # Create SSH directory
+          chmod 700 ~/.ssh                     # Secure permissions
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config  # Disable host key checking
+          touch ~/.ssh/known_hosts             # Create known_hosts file
+          chmod 600 ~/.ssh/known_hosts         # Secure permissions
+
+      # Step 6: Decode and set up SSH private key for server access
       - name: "Put SSH Key in Docker file for Server Access"
         run: |
-          touch pem.pem
-          echo $SSH_KEY64 | base64 -d > pem.pem && chmod 400 pem.pem
-          ssh-keygen -R $SERVER_IP
+          touch pem.pem                                        # Create PEM file
+          echo $SSH_KEY64 | base64 -d > pem.pem && chmod 400 pem.pem  # Decode and secure key
+          ssh-keygen -R $SERVER_IP                             # Remove old host key entry
         env: 
-          SSH_KEY64: ${{ secrets.SSH_KEY64 }}
+          SSH_KEY64: ${{ secrets.SSH_KEY64 }}  # Base64-encoded SSH private key
 
+      # Step 7: Connect to server via SSH and deploy updated Docker container
       - name: "Docker Pull and Restart Docker"
         run: |
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull sahilgurung13/devopscw'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop coursework && docker rm coursework'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name coursework -p 80:80 -d sahilgurung13/devopscw'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull sahilgurung13/devopscw'  # Pull latest image
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop coursework && docker rm coursework'  # Stop and remove old container
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name coursework -p 80:80 -d sahilgurung13/devopscw'  # Run new container
