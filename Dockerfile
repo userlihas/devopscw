@@ -1,4 +1,4 @@
 FROM nginx:latest
 COPY index.html /usr/share/nginx/html/index.html
-COPY resume.png /usr/share/nginx/html/resume.png
+COPY resume.pdf /usr/share/nginx/html/resume.pdf
 EXPOSE 80
